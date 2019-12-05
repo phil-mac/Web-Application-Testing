@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 function App() {
   const [ballCount, setBallCount] = useState(0);
   const [strikeCount, setStrikeCount] = useState(0);
+  const [outs, setOuts] = useState(0);
 
   const ball = () => {
     setBallCount(ballCount + 1);
@@ -16,8 +17,10 @@ function App() {
 
   const strike = () => {
     setStrikeCount(strikeCount + 1);
-    if (strikeCount + 1 === 3)
+    if (strikeCount + 1 === 3){
+      out();
       reset();
+    }
   }
 
   const foul = () => {
@@ -34,9 +37,16 @@ function App() {
     setStrikeCount(0);
   }
 
+  const out = () => {
+    setOuts(outs + 1);
+    if (outs + 1 === 3){
+      setOuts(0);
+    }
+  }
+
   return (
     <div className="App">
-      <Display ballCount={ballCount} strikeCount={strikeCount}/>
+      <Display ballCount={ballCount} strikeCount={strikeCount} outs={outs}/>
       <Dashboard ball={ball} strike={strike} foul={foul} hit={hit}/>
     </div>
   );
